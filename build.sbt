@@ -1,18 +1,23 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "2.13.3"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
-ThisBuild / organizationName := "example"
+ThisBuild / scalaVersion         := "2.13.0"
+ThisBuild / libraryDependencies  += scalaTest % Test
+ThisBuild / credentials          += Credentials(Path.userHome / ".sbt" / ".credentials")
 
-lazy val root = (project in file("."))
+lazy val release = (project in file("."))
   .settings(
-    name := "scalautils",
-    libraryDependencies += scalaTest % Test
+  	name             := "scalautils",
+    version          := "1.0.0",
+	organization     := "io.github.hyperchessbot",
+	organizationName := "hyperchessbot",
+	publishTo        := Some("Artifactory Realm" at "https://hyperbot.jfrog.io/artifactory/hyperbot")
   )
 
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
-
-credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
-
-publishTo := Some("Artifactory Realm" at "https://hyperbot.jfrog.io/artifactory/hyperbot;build.timestamp=" + new java.util.Date().getTime)
+lazy val snapshot = (project in file("."))
+  .settings(
+    name             := "scalautils",
+    version          := "0.1.0-SNAPSHOT",
+	organization     := "com.example",
+	organizationName := "example",
+	publishTo        := Some("Artifactory Realm" at "https://hyperbot.jfrog.io/artifactory/hyperbot;build.timestamp=" + new java.util.Date().getTime)
+  )
